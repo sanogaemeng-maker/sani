@@ -174,7 +174,6 @@
 </header>
 
 <div class="container">
-    <!-- Ad Banner (Page 1) -->
     <div id="sponsoredAd" class="ad-container">
         <div class="ad-slide" id="adBg">
             <div class="ad-content">
@@ -185,7 +184,6 @@
         </div>
     </div>
 
-    <!-- King Console -->
     <div id="homeHero" class="king-console animate__animated animate__fadeInDown">
         <h2 class="shock-title">گەورەترین سینەمای مێژوو <span>بۆ پاشاکان</span></h2>
         
@@ -225,7 +223,6 @@
         </div>
     </div>
 
-    <!-- Main Grid -->
     <main id="appRoot">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:25px;">
             <h2 style="font-weight:900; font-size:1.4rem; border-right:5px solid var(--accent); padding-right:15px; text-shadow:var(--glow);"><i class="fas fa-bolt"></i> نوێترینەکان</h2>
@@ -238,7 +235,6 @@
     </main>
 </div>
 
-<!-- Modals -->
 <div class="modal" id="authModal">
     <div class="modal-box animate__animated animate__zoomIn">
         <h2 style="text-align:center; color:var(--accent); margin-bottom:25px;" id="authHead"><i class="fas fa-user-crown"></i> چوونەژوورەوە</h2>
@@ -303,26 +299,86 @@
 </footer>
 
 <script>
-    // --- DATABASE ---
+    // --- DATABASE (نوێکرایەوە دانە بە دانە) ---
     const initialDB = [
-        { id: 1, title: "Gladiator II", year: "2024", type: "movie", genre: "ئەکشن", rating: "7.0", budget: "250M$", revenue: "480M$", eps: "1", img: "https://image.tmdb.org/t/p/w500/2cxhv0n4p9u9v1nCXY5vThoffQy.jpg", desc: "ماکسیمۆس دەگەڕێتەوە بۆ مەیدانی جەنگ بۆ تۆڵەسەندنەوە.", links: ["https://vidsrc.to/embed/movie/tt9660574"] },
-        { id: 2, title: "Arcane S2", year: "2024", type: "series", genre: "دراما", rating: "9.1", budget: "250M$", revenue: "N/A", eps: "9", img: "https://image.tmdb.org/t/p/w500/fqldWg2tKy6pXzrXvAz60a1uqS2.jpg", desc: "ململانێی دو خوشک بەرەو کۆتایی.", links: ["https://vidsrc.to/embed/tv/tt11126994/2/1"] }
+        { 
+            id: 1, title: "Gladiator II", year: "2024", type: "movie", genre: "ئەکشن", rating: "7.0", budget: "250M$", revenue: "480M$", eps: "1", 
+            img: "https://image.tmdb.org/t/p/w500/2cxhv0n4p9u9v1nCXY5vThoffQy.jpg", 
+            desc: "ماکسیمۆس دەگەڕێتەوە بۆ مەیدانی جەنگ بۆ تۆڵەسەندنەوە. بینەربە بە ژێرنووسی کوردی.", 
+            links: ["https://vidsrc.to/embed/movie/tt9660574", "https://vidsrc.icu/embed/movie/tt9660574", "https://vidsrc.xyz/embed/movie/tt9660574"] 
+        },
+        { 
+            id: 2, title: "Arcane S2", year: "2024", type: "series", genre: "دراما", rating: "9.1", budget: "250M$", revenue: "N/A", eps: "9", 
+            img: "https://image.tmdb.org/t/p/w500/fqldWg2tKy6pXzrXvAz60a1uqS2.jpg", 
+            desc: "ململانێی دوو خوشک بەرەو کۆتایی. بینەربە بە ژێرنووسی کوردی.", 
+            links: ["https://vidsrc.to/embed/tv/tt11126994", "https://vidsrc.icu/embed/tv/tt11126994"] 
+        },
+        {
+            id: 3, title: "Oppenheimer", year: "2023", type: "movie", genre: "دراما", rating: "8.5", budget: "100M$", revenue: "950M$", eps: "1",
+            img: "https://image.tmdb.org/t/p/w500/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg", 
+            desc: "چیرۆکی دروستکردنی بۆمبی ئەتۆمی لەلایەن جەی ڕۆبێرت ئۆپنهایمەر. بەردەستە بە ژێرنووسی کوردی.",
+            links: ["https://vidsrc.to/embed/movie/tt15398776", "https://vidsrc.icu/embed/movie/tt15398776"]
+        },
+        {
+            id: 4, title: "The Dark Knight", year: "2008", type: "movie", genre: "ئەکشن", rating: "9.0", budget: "185M$", revenue: "1.006B$", eps: "1",
+            img: "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDp9sSuduZu7QpXq6OQ.jpg", 
+            desc: "باتمان ڕووبەڕووی جۆکەر دەبێتەوە لە شاری گۆثام بۆ ڕزگارکردنی شارەکە. بە ژێرنووسی کوردی.",
+            links: ["https://vidsrc.to/embed/movie/tt0468569", "https://vidsrc.icu/embed/movie/tt0468569"]
+        },
+        {
+            id: 5, title: "Inception", year: "2010", type: "movie", genre: "خەیاڵی زانستی", rating: "8.8", budget: "160M$", revenue: "836M$", eps: "1",
+            img: "https://image.tmdb.org/t/p/w500/oYuLEt3zVCKq57qu2F8dT7NIa6f.jpg", 
+            desc: "دزینی زانیاری لە ڕێگەی چوونە ناو خەوی کەسەکانەوە لەلایەن تیمێکی شارەزاوە. بە ژێرنووسی کوردی.",
+            links: ["https://vidsrc.to/embed/movie/tt1375666", "https://vidsrc.xyz/embed/movie/tt1375666"]
+        },
+        {
+            id: 6, title: "Stranger Things", year: "2016", type: "series", genre: "خەیاڵی زانستی", rating: "8.7", budget: "N/A", revenue: "N/A", eps: "34",
+            img: "https://image.tmdb.org/t/p/w500/49WJfeN0moxb9IPfGn8AIqMGskD.jpg", 
+            desc: "دیارنەمانی منداڵێک و دەرکەوتنی کچێکی خاوەن هێزی سەیر لە شارۆچکەیەک. بینەربە بە ژێرنووسی کوردی.",
+            links: ["https://vidsrc.to/embed/tv/tt4574334", "https://vidsrc.icu/embed/tv/tt4574334"]
+        },
+        {
+            id: 7, title: "Attack on Titan", year: "2013", type: "anime", genre: "ئەکشن", rating: "9.1", budget: "N/A", revenue: "N/A", eps: "89",
+            img: "https://image.tmdb.org/t/p/w500/hTP1DtLGFamjfu8WqjnuQdP1n4i.jpg", 
+            desc: "مرۆڤایەتی لەناو دیوارەکاندا دەژین بۆ پاراستنیان لە زەبەلاحەکان. بەردەستە بە ژێرنووسی کوردی.",
+            links: ["https://vidsrc.to/embed/tv/tt2560140", "https://vidsrc.xyz/embed/tv/tt2560140"]
+        },
+        {
+            id: 8, title: "Breaking Bad", year: "2008", type: "series", genre: "دراما", rating: "9.5", budget: "N/A", revenue: "N/A", eps: "62",
+            img: "https://image.tmdb.org/t/p/w500/3xnWaLQjelJDDF7LT1WBo6f4BRe.jpg", 
+            desc: "مامۆستایەکی کیمیا دەست دەکات بە دروستکردنی ماددەی هۆشبەر بۆ دابینکردنی داهاتووی خێزانەکەی. بە ژێرنووسی کوردی.",
+            links: ["https://vidsrc.to/embed/tv/tt0903747", "https://vidsrc.icu/embed/tv/tt0903747"]
+        },
+        {
+            id: 9, title: "The Conjuring", year: "2013", type: "movie", genre: "ترسناک", rating: "7.5", budget: "20M$", revenue: "319M$", eps: "1",
+            img: "https://image.tmdb.org/t/p/w500/wVYREutTvI2tmxr6ujrHT704wGF.jpg", 
+            desc: "خێزانێک تووشی ڕووداوی ترسناک دەبن لە ماڵە نوێیەکەیان و داوای یارمەتی دەکەن. بە ژێرنووسی کوردی.",
+            links: ["https://vidsrc.to/embed/movie/tt1457767", "https://vidsrc.xyz/embed/movie/tt1457767"]
+        },
+        {
+            id: 10, title: "Deadpool & Wolverine", year: "2024", type: "movie", genre: "کۆمیدی", rating: "8.0", budget: "200M$", revenue: "1.3B$", eps: "1",
+            img: "https://image.tmdb.org/t/p/w500/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg", 
+            desc: "دێدپوول و وۆڵڤەرین یەکدەگرن بۆ ڕزگارکردنی جیهان لە هەڕەشەیەکی گەورە. بینەربە بە ژێرنووسی کوردی.",
+            links: ["https://vidsrc.to/embed/movie/tt6263850", "https://vidsrc.icu/embed/movie/tt6263850"]
+        },
+        {
+            id: 11, title: "Interstellar", year: "2014", type: "movie", genre: "خەیاڵی زانستی", rating: "8.7", budget: "165M$", revenue: "731M$", eps: "1",
+            img: "https://image.tmdb.org/t/p/w500/gEU2QniE6EwfVDxCzs25vubp2FA.jpg", 
+            desc: "گەشتێک بۆ دەرەوەی گەلەستێرەکەمان بۆ دۆزینەوەی ماڵێکی نوێ بۆ مرۆڤایەتی. بە ژێرنووسی کوردی.",
+            links: ["https://vidsrc.to/embed/movie/tt0816692", "https://vidsrc.xyz/embed/movie/tt0816692"]
+        },
+        {
+            id: 12, title: "Joker", year: "2019", type: "movie", genre: "دراما", rating: "8.4", budget: "55M$", revenue: "1.074B$", eps: "1",
+            img: "https://image.tmdb.org/t/p/w500/udDclJoHjfpt8MvSMzNDemO1Oxa.jpg", 
+            desc: "چیرۆکی سەرەتای سەرهەڵدانی جۆکەر و ئەو ڕووداوانەی وای لێکرد بگۆڕێت. بەردەستە بە ژێرنووسی کوردی.",
+            links: ["https://vidsrc.to/embed/movie/tt7286456", "https://vidsrc.icu/embed/movie/tt7286456", "https://vidsrc.xyz/embed/movie/tt7286456"]
+        }
     ];
 
-    for(let i=3; i<=30; i++) {
-        initialDB.push({
-            id: i, title: i % 2 === 0 ? "Interstellar " + i : "Batman " + i,
-            year: "2023", type: i % 3 === 0 ? "series" : "movie", genre: i % 4 === 0 ? "خەیاڵی زانستی" : "دراما",
-            rating: "8.9", budget: "165M$", revenue: "701M$", eps: "1",
-            img: i % 2 === 0 ? "https://image.tmdb.org/t/p/w500/gEU2QniE6EwfVDxCzs25vubp2FA.jpg" : "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDp9sSuduZu7QpXq6OQ.jpg",
-            desc: "ئەمە بەرهەمێکی نایابی پاشای فیلمە.", links: ["https://vidsrc.to/embed/movie/tt0816692"]
-        });
-    }
-
-    // --- State ---
-    let db = JSON.parse(localStorage.getItem('pasha_db_v28')) || initialDB;
-    let user = JSON.parse(localStorage.getItem('pasha_user_v28')) || null;
-    let isAdmin = localStorage.getItem('pasha_isAdmin_v28') === 'true';
+    // --- State (گۆڕانکاری کرا بۆ v29 بۆ ئەوەی ڕاستەوخۆ داتابەیسە نوێیەکە بخوێنێتەوە) ---
+    let db = JSON.parse(localStorage.getItem('pasha_db_v29')) || initialDB;
+    let user = JSON.parse(localStorage.getItem('pasha_user_v29')) || null;
+    let isAdmin = localStorage.getItem('pasha_isAdmin_v29') === 'true';
     let currentPage = 1, itemsPerPage = 8, filteredDB = [...db], authMode = 'login';
 
     function init() {
@@ -345,8 +401,8 @@
     }
 
     function applySettings() {
-        const theme = localStorage.getItem('pasha_theme_v28') || '#00f2ff';
-        const grid = localStorage.getItem('pasha_grid_v28') || 2;
+        const theme = localStorage.getItem('pasha_theme_v29') || '#00f2ff';
+        const grid = localStorage.getItem('pasha_grid_v29') || 2;
         document.documentElement.style.setProperty('--accent', theme);
         document.documentElement.style.setProperty('--grid-cols', grid);
         const hex = theme.replace('#','');
@@ -360,7 +416,7 @@
         if(user) {
             wel.style.display = 'block'; wel.innerText = "سڵاو پاشا " + user.name;
             btn.innerHTML = '<i class="fas fa-sign-out-alt"></i>';
-            btn.onclick = () => { if(confirm('دەچیتە دەرەوە؟')) { localStorage.removeItem('pasha_user_v28'); location.reload(); } };
+            btn.onclick = () => { if(confirm('دەچیتە دەرەوە؟')) { localStorage.removeItem('pasha_user_v29'); location.reload(); } };
         } else btn.onclick = () => openModal('authModal');
     }
 
@@ -410,6 +466,14 @@
         const item = db.find(x => x.id === id), root = document.getElementById('appRoot');
         document.getElementById('homeHero').style.display = 'none';
         document.getElementById('sponsoredAd').style.display = 'none';
+        
+        // دروستکردنی دوگمەی سێرڤەرەکان (بۆ ژێرنووسی کوردی)
+        const serverButtons = item.links.map((l, i) => `
+            <button class="page-node" style="width:auto; padding:0 30px; border-radius:15px; font-weight:900;" onclick="document.getElementById('kPlayer').src='${l}'">
+                <i class="fas fa-play-circle"></i> سێرڤەری کوردی ${i+1}
+            </button>
+        `).join('');
+
         root.innerHTML = `
             <div class="animate__animated animate__fadeIn">
                 <button class="btn-elite" style="width:auto; padding:8px 30px; margin-bottom:30px;" onclick="location.reload()"><i class="fas fa-arrow-right"></i> گەڕانەوە</button>
@@ -425,7 +489,7 @@
                 </div>
                 <p style="background:rgba(255,255,255,0.06); padding:25px; border-radius:20px; line-height:2; border:1px solid var(--accent); font-size:1.1rem;">${item.desc}</p>
                 <div style="margin-top:35px; display:flex; gap:12px; flex-wrap:wrap;">
-                    ${item.links.map((l, i) => `<button class="page-node" style="width:auto; padding:0 30px; border-radius:15px;" onclick="document.getElementById('kPlayer').src='${l}'">سێرڤەری ${i+1}</button>`).join('')}
+                    ${serverButtons}
                 </div>
             </div>
         `;
@@ -436,17 +500,17 @@
     function handleAuth() {
         const n = document.getElementById('authU').value;
         if(!n) return alert("ناوی پاشایەتی بنووسە!");
-        user = { name: n }; localStorage.setItem('pasha_user_v28', JSON.stringify(user));
+        user = { name: n }; localStorage.setItem('pasha_user_v29', JSON.stringify(user));
         location.reload();
     }
     function checkAdmin() {
         if(document.getElementById('adminKey').value === "sanisarok1") {
-            localStorage.setItem('pasha_isAdmin_v28', 'true');
+            localStorage.setItem('pasha_isAdmin_v29', 'true');
             location.reload();
         } else alert("کۆدی نهێنی هەڵەیە!");
     }
-    function setTheme(c) { localStorage.setItem('pasha_theme_v28', c); location.reload(); }
-    function setGrid(v) { localStorage.setItem('pasha_grid_v28', v); location.reload(); }
+    function setTheme(c) { localStorage.setItem('pasha_theme_v29', c); location.reload(); }
+    function setGrid(v) { localStorage.setItem('pasha_grid_v29', v); location.reload(); }
 
     const runFilter = () => {
         const s = document.getElementById('searchInput').value.toLowerCase();
@@ -464,9 +528,9 @@
 
     function saveItem() {
         db.unshift({ id: Date.now(), title: document.getElementById('addT').value, year: document.getElementById('addY').value, rating: document.getElementById('addR').value, budget: document.getElementById('addB').value, revenue: document.getElementById('addRev').value, eps: document.getElementById('addE').value, img: document.getElementById('addI').value, type: document.getElementById('addType').value, genre: document.getElementById('addGenre').value, links: document.getElementById('addL').value.split(','), desc: document.getElementById('addD').value });
-        localStorage.setItem('pasha_db_v28', JSON.stringify(db)); location.reload();
+        localStorage.setItem('pasha_db_v29', JSON.stringify(db)); location.reload();
     }
-    function deleteItem(id) { if(confirm('بسرێتەوە؟')) { db = db.filter(x => x.id !== id); localStorage.setItem('pasha_db_v28', JSON.stringify(db)); location.reload(); } }
+    function deleteItem(id) { if(confirm('بسرێتەوە؟')) { db = db.filter(x => x.id !== id); localStorage.setItem('pasha_db_v29', JSON.stringify(db)); location.reload(); } }
 
     function openModal(id) { document.getElementById(id).style.display = 'flex'; }
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
