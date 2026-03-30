@@ -3,17 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>پاشای فیلم | Elite Pro V37 - Dynamic Servers</title>
+    <title>پاشای فیلم | سانی شێخانی</title>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     
     <style>
+        /* ڕێکخستنی ڕەنگە سەرەکییەکان و دیزاین */
         :root { --accent: #00f2ff; --accent-rgb: 0, 242, 255; --bg: #030305; --card-bg: rgba(15, 15, 25, 0.95); --text: #ffffff; --glow: 0 0 20px rgba(var(--accent-rgb), 0.6); --grid-cols: 2; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Vazirmatn', sans-serif; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
         body { background-color: var(--bg); color: var(--text); overflow-x: hidden; font-size: 14px; line-height: 1.6; }
         html { scroll-behavior: smooth; }
-        body::before { content: ''; position: fixed; inset: 0; background: radial-gradient(circle at 50% -30%, rgba(var(--accent-rgb), 0.2), transparent 70%); z-index: -1; }
+        
+        body::before { content: ''; position: fixed; inset: 0; background: radial-gradient(circle at 50% -30%, rgba(var(--accent-rgb), 0.15), transparent 70%); z-index: -1; }
         .container { width: 92%; max-width: 1200px; margin: 0 auto; }
 
         #splash { position: fixed; inset: 0; background: #000; z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
@@ -45,18 +47,31 @@
         .search-hud { position: relative; flex: 1; }
         .search-hud input { width: 100%; padding: 15px 55px 15px 25px; background: #000; border: 2px solid var(--accent); border-radius: 15px; color: #fff; font-size: 1.1rem; font-weight: 800; outline: none; }
         
-        .movie-grid { display: grid; grid-template-columns: repeat(var(--grid-cols), 1fr); gap: 20px; }
+        /* --------------------------------- */
+        /* بەشی چەشنەکان (نوێ) */
+        /* --------------------------------- */
+        .category-filters { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 20px; }
+        .cat-btn { background: rgba(255,255,255,0.05); border: 1.5px solid rgba(var(--accent-rgb), 0.3); color: #fff; padding: 8px 18px; border-radius: 20px; cursor: pointer; font-weight: bold; font-size: 0.9rem; transition: 0.3s; }
+        .cat-btn:hover, .cat-btn.active { background: var(--accent); color: #000; box-shadow: var(--glow); border-color: var(--accent); }
+
+        .movie-grid { display: grid; grid-template-columns: repeat(var(--grid-cols), 1fr); gap: 20px; margin-top: 20px; }
         .m-card { background: var(--card-bg); border-radius: 25px; overflow: hidden; border: 1.5px solid rgba(255,255,255,0.05); position: relative; cursor: pointer; }
         .m-card:hover { transform: translateY(-10px); border-color: var(--accent); box-shadow: var(--glow); }
         .m-poster { aspect-ratio: 2/3; background-size: cover; background-position: center; position: relative; }
-        .m-badge { position: absolute; top: 15px; left: 15px; background: var(--accent); color: #000; padding: 4px 10px; border-radius: 8px; font-weight: 900; font-size: 0.7rem; }
+        .m-badge { position: absolute; top: 15px; left: 15px; background: var(--accent); color: #000; padding: 4px 10px; border-radius: 8px; font-weight: 900; font-size: 0.7rem; box-shadow: 0 0 10px rgba(0,0,0,0.5); }
+        
+        /* باج بۆ جۆری چەشنەکە لەسەر پۆستەرەکە */
+        .m-genre-badge { position: absolute; top: 15px; right: 15px; background: rgba(0,0,0,0.7); color: #fff; padding: 4px 10px; border-radius: 8px; font-weight: bold; font-size: 0.7rem; border: 1px solid var(--accent); backdrop-filter: blur(5px); }
+        
         .m-info { padding: 15px; text-align: center; }
-        .m-info h3 { font-size: 1rem; font-weight: 900; margin-bottom: 5px; color: #fff; }
+        .m-info h3 { font-size: 1.1rem; font-weight: 900; margin-bottom: 5px; color: #fff; }
 
         .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.97); backdrop-filter: blur(25px); z-index: 9000; align-items: center; justify-content: center; padding: 20px; }
         .modal-box { background: #0a0a15; padding: 35px; border-radius: 35px; border: 2.5px solid var(--accent); width: 100%; max-width: 600px; box-shadow: var(--glow); max-height: 90vh; overflow-y: auto; }
-        input, select, textarea { width: 100%; padding: 12px; background: #000; border: 1.5px solid var(--accent); border-radius: 12px; color: #fff; margin-bottom: 15px; outline: none; font-weight: 700; }
-        .btn-elite { width: 100%; padding: 12px; background: var(--accent); color: #000; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        input, select, textarea { width: 100%; padding: 12px; background: #000; border: 1.5px solid var(--accent); border-radius: 12px; color: #fff; margin-bottom: 15px; outline: none; font-weight: 700; transition: border-color 0.3s; }
+        input:focus, select:focus, textarea:focus { border-color: #ff0055; box-shadow: 0 0 10px rgba(255,0,85,0.3); }
+        .btn-elite { width: 100%; padding: 12px; background: var(--accent); color: #000; border: none; border-radius: 12px; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 1rem; }
+        .btn-elite:hover { filter: brightness(1.2); transform: scale(0.98); }
 
         .pagination { display: flex; justify-content: center; gap: 10px; margin: 40px 0; }
         .page-node { width: 45px; height: 45px; background: var(--card-bg); border: 1.5px solid var(--accent); border-radius: 12px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-weight: 900; }
@@ -73,10 +88,20 @@
         .server-inputs-box h4, .img-upload-box h4 { margin-bottom: 10px; color: var(--accent); font-size: 0.9rem; font-weight: 900; }
         .server-row { display: flex; gap: 10px; margin-bottom: 10px; align-items: center; }
         
-        footer { background: #000; padding: 60px 0; border-top: 2px solid var(--accent); text-align: center; margin-top: 80px; }
+        footer { background: #000; padding: 60px 0; border-top: 2px solid var(--accent); text-align: center; margin-top: 80px; position: relative; }
         .footer-logo { font-size: 2.5rem; font-weight: 900; color: var(--accent); text-shadow: var(--glow); margin-bottom: 10px; }
+        
+        @keyframes shineText { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        
+        .owner-copyright {
+            font-size: 1.4rem; font-weight: 900; background: linear-gradient(90deg, #ff0055, #00f2ff, #ff0055, #ffd700); background-size: 300% auto;
+            color: #fff; background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            animation: shineText 4s linear infinite; margin-top: 20px; letter-spacing: 1px; text-shadow: 0px 4px 15px rgba(0, 242, 255, 0.3);
+        }
+        
+        .owner-badge { display: inline-block; background: rgba(255, 215, 0, 0.1); border: 1px solid #ffd700; padding: 5px 15px; border-radius: 20px; font-size: 0.85rem; color: #ffd700; margin-top: 15px; }
 
-        @media (max-width: 800px) { :root { --grid-cols: 2 !important; } .server-row { flex-direction: column; gap: 5px; margin-bottom: 15px; } }
+        @media (max-width: 800px) { :root { --grid-cols: 2 !important; } .server-row { flex-direction: column; gap: 5px; margin-bottom: 15px; } .owner-copyright { font-size: 1.1rem; } }
     </style>
 </head>
 <body>
@@ -84,6 +109,7 @@
 <div id="splash">
     <i class="fas fa-crown splash-crown"></i>
     <h1 style="color:#fff; margin-top:15px; font-weight:900; letter-spacing:5px;">پاشای فیلم</h1>
+    <p style="color:var(--accent); margin-top:10px; font-weight:bold;">بەرهەمی سانی شێخانی</p>
 </div>
 
 <header>
@@ -115,10 +141,21 @@
         <div class="search-flex">
             <div class="search-hud"><input type="text" id="searchInput" placeholder="بەدوای فیلم یان زنجیرە بگەڕێ..."></div>
         </div>
+        <div class="category-filters" id="categoryFilters">
+            <button class="cat-btn active" onclick="filterByCategory('هەمووی', this)">هەمووی</button>
+            <button class="cat-btn" onclick="filterByCategory('ئەکشن', this)">ئەکشن</button>
+            <button class="cat-btn" onclick="filterByCategory('دراما', this)">دراما</button>
+            <button class="cat-btn" onclick="filterByCategory('کۆمیدی', this)">کۆمیدی</button>
+            <button class="cat-btn" onclick="filterByCategory('ترسناک', this)">ترسناک</button>
+            <button class="cat-btn" onclick="filterByCategory('خەیاڵی', this)">خەیاڵی</button>
+            <button class="cat-btn" onclick="filterByCategory('ئەنیمەیشن', this)">ئەنیمەیشن</button>
+            <button class="cat-btn" onclick="filterByCategory('تاوان', this)">تاوان</button>
+            <button class="cat-btn" onclick="filterByCategory('ڕۆمانسی', this)">ڕۆمانسی</button>
+        </div>
     </div>
 
     <main id="appRoot">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:25px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
             <h2 style="font-weight:900; font-size:1.4rem; border-right:5px solid var(--accent); padding-right:15px;"><i class="fas fa-bolt"></i> نوێترینەکان</h2>
             <div id="adminPanel" style="display:none;">
                 <button class="btn-elite" style="background:#f59e0b; padding:8px 15px; font-size:0.8rem;" onclick="openModal('addModal')"><i class="fas fa-plus"></i> بەرهەمی نوێ</button>
@@ -126,6 +163,7 @@
         </div>
         
         <div id="dbLoader"><div class="spinner"></div> داتاکان دەهێنرێن...</div>
+        <div id="noResult" style="display:none; text-align:center; padding:50px; color:#94a3b8; font-size:1.2rem;"><i class="fas fa-frown" style="font-size:3rem; color:var(--accent); margin-bottom:15px; display:block;"></i>هیچ بەرهەمێک نەدۆزرایەوە بەم تایبەتمەندییانە</div>
         <div class="movie-grid" id="movieGrid"></div>
         <div class="pagination" id="pagination"></div>
     </main>
@@ -159,28 +197,38 @@
         
         <div class="img-upload-box">
             <h4><i class="fas fa-image"></i> وێنەی پۆستەر</h4>
-            <label style="display:block; margin-bottom:5px; font-size:0.85rem;">هەڵبژاردنی فایلی وێنە (خۆکارانە دەبێتە لینک):</label>
+            <label style="display:block; margin-bottom:5px; font-size:0.85rem; color:#ccc;">هەڵبژاردنی فایلی وێنە:</label>
             <input type="file" id="addIFile" accept="image/*" style="padding: 5px; background: transparent; border: 1px dashed var(--accent);">
-            <p style="text-align:center; margin:5px 0; font-weight:bold;">یان</p>
+            <p style="text-align:center; margin:5px 0; font-weight:bold; color:#777;">یان</p>
             <input type="text" id="addILink" placeholder="بەستەری وێنەکە ڕاستەوخۆ لێرە دابنێ...">
         </div>
 
         <select id="addType"><option value="movie">فیلم</option><option value="series">زنجیرە</option></select>
-        <select id="addGenre"><option value="ئەکشن">ئەکشن</option><option value="دراما">دراما</option><option value="کۆمیدی">کۆمیدی</option></select>
+        
+        <select id="addGenre">
+            <option value="ئەکشن">ئەکشن</option>
+            <option value="دراما">دراما</option>
+            <option value="کۆمیدی">کۆمیدی</option>
+            <option value="ترسناک">ترسناک</option>
+            <option value="خەیاڵی">خەیاڵی</option>
+            <option value="ئەنیمەیشن">ئەنیمەیشن</option>
+            <option value="تاوان">تاوان</option>
+            <option value="ڕۆمانسی">ڕۆمانسی</option>
+        </select>
         
         <div class="server-inputs-box">
             <h4><i class="fas fa-server"></i> سێرڤەرەکان بە دڵی خۆت</h4>
-            <p style="font-size: 0.75rem; color: #94a3b8; margin-bottom: 10px;">تێبینی: بۆ زنجیرە، لینکەکانی ناو سێرڤەرەکە بە کۆما (,) جیا بکەرەوە.</p>
+            <p style="font-size: 0.75rem; color: #ff0055; margin-bottom: 10px;">تێبینی: بۆ زنجیرە، لینکەکانی ناو سێرڤەرەکە بە کۆما (,) جیا بکەرەوە.</p>
             <div id="dynamicServers">
                 <div class="server-row">
-                    <input type="text" placeholder="ناوی سێرڤەر (نموونە: HD Player)" class="srv-name" style="margin:0;">
-                    <input type="text" placeholder="لینکی سێرڤەر / لینکەکان" class="srv-url" style="margin:0;">
+                    <input type="text" placeholder="ناوی سێرڤەر" class="srv-name" style="margin:0;">
+                    <input type="text" placeholder="لینکی سێرڤەر" class="srv-url" style="margin:0;">
                 </div>
             </div>
             <button class="btn-elite" style="background:#333; color:#fff; padding:8px; font-size:0.85rem;" onclick="addServerRow()"><i class="fas fa-plus"></i> زیادکردنی سێرڤەرێکی تر</button>
         </div>
 
-        <textarea id="addD" placeholder="وەسفی کوردی..."></textarea>
+        <textarea id="addD" placeholder="وەسفی کوردی..." rows="3"></textarea>
         <button class="btn-elite" id="publishBtn" onclick="saveItem()"><i class="fas fa-upload"></i> بڵاوکردنەوەی بەرهەم</button>
         <button class="btn-elite" style="margin-top:10px; background:#222; color:#fff;" onclick="closeModal('addModal')">داخستن</button>
     </div>
@@ -189,29 +237,29 @@
 <footer>
     <div class="container">
         <div class="footer-logo"><i class="fas fa-crown"></i> پاشای فیلم</div>
-        <p style="color:#94a3b8;">پڕۆژەی شاهانە - V37 Dynamic Cloud</p>
+        <div class="owner-copyright">مافی خاوەندارێتی تەواوی ئەم ماڵپەڕە دەگەڕێتەوە بۆ: سانی شێخانی ©</div>
+        <div class="owner-badge"><i class="fas fa-code"></i> گەشەپێدراوە لەلایەن Sani Shexani</div>
+        <p style="color:#94a3b8; margin-top: 20px; font-size: 0.85rem;">بەرزترین کوالێتی، خێراترین سێرڤەر - Elite V38</p>
     </div>
 </footer>
 
 <script>
-    // ==========================================
     // ⚠️ ڕێکخستنی داتابەیس و وێنە ⚠️
-    // ==========================================
     const BIN_ID = "69c9bd87aaba882197a5d955"; 
     const MASTER_KEY = "$2a$10$QcBDqpiLTPm5LJ6kbuWs7ey9aB5ww5A9sJq31O66lABp5x4SsHtYC";
-    
-    // کۆدی API ماڵپەڕی ImgBB بۆ ئەپلۆدکردنی وێنە
+    const ACCESS_KEY = "$2a$10$L7ANndhVSJwcDtoGuNTMbOlJsUfJdI1n20IsmAbDMpwg2qP1KJp6i"; 
     const IMGBB_API_KEY = "9d2c9cda51d8fd69a74f9e3af1d6c22b"; 
-    // ==========================================
 
     let db = []; let filteredDB = []; let currentPage = 1, itemsPerPage = 8;
-    let currentItem = null, currentEpIdx = 0;
+    let currentItem = null, currentEpIdx = 0, currentCategory = 'هەمووی'; // جۆری دیفۆڵت
     let user = JSON.parse(localStorage.getItem('pasha_user_v37')) || null;
     let isAdmin = localStorage.getItem('pasha_isAdmin_v37') === 'true';
 
     async function fetchDB() {
         try {
-            const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, { headers: { 'X-Master-Key': MASTER_KEY } });
+            const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, { 
+                headers: { 'X-Master-Key': MASTER_KEY } 
+            });
             const data = await res.json();
             db = data.record; filteredDB = [...db];
             document.getElementById('dbLoader').style.display = 'none';
@@ -220,50 +268,86 @@
     }
 
     async function saveToCloudDB() {
-        await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
-            method: 'PUT', headers: { 'Content-Type': 'application/json', 'X-Master-Key': MASTER_KEY }, body: JSON.stringify(db)
+        const res = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+            method: 'PUT', 
+            headers: { 'Content-Type': 'application/json', 'X-Master-Key': MASTER_KEY, 'X-Access-Key': ACCESS_KEY }, 
+            body: JSON.stringify(db)
         });
+        if (!res.ok) throw new Error("داتابەیس ڕێگە نادات.");
     }
 
     function init() {
         setTimeout(() => document.getElementById('splash').style.display = 'none', 1500);
         if(isAdmin) document.getElementById('adminPanel').style.display = 'block';
-        if(user) { document.getElementById('userNameDisp').style.display = 'block'; document.getElementById('userNameDisp').innerText = "سڵاو " + user.name; document.getElementById('loginBtn').innerHTML = '<i class="fas fa-sign-out-alt"></i>'; document.getElementById('loginBtn').onclick = () => { localStorage.removeItem('pasha_user_v37'); location.reload(); }; } 
-        else { document.getElementById('loginBtn').onclick = () => openModal('authModal'); }
+        if(user) { 
+            document.getElementById('userNameDisp').style.display = 'block'; 
+            document.getElementById('userNameDisp').innerText = "سڵاو " + user.name; 
+            document.getElementById('loginBtn').innerHTML = '<i class="fas fa-sign-out-alt"></i>'; 
+            document.getElementById('loginBtn').onclick = () => { localStorage.removeItem('pasha_user_v37'); location.reload(); }; 
+        } else { document.getElementById('loginBtn').onclick = () => openModal('authModal'); }
         fetchDB();
     }
 
     function renderAd() {
         const ad = document.getElementById('sponsoredAd');
-        if(currentPage === 1 && db.length > 0) {
-            ad.style.display = 'block'; document.getElementById('adTitle').innerText = db[0].title;
-            document.getElementById('adBg').style.backgroundImage = `url('${db[0].img}')`;
-            document.getElementById('adPlay').onclick = () => watchItem(db[0].id);
+        if(currentPage === 1 && filteredDB.length > 0 && currentCategory === 'هەمووی' && document.getElementById('searchInput').value === '') {
+            ad.style.display = 'block'; document.getElementById('adTitle').innerText = filteredDB[0].title;
+            document.getElementById('adBg').style.backgroundImage = `url('${filteredDB[0].img}')`;
+            document.getElementById('adPlay').onclick = () => watchItem(filteredDB[0].id);
         } else ad.style.display = 'none';
     }
 
     function renderUI() {
-        const grid = document.getElementById('movieGrid'), start = (currentPage-1)*itemsPerPage, pageItems = filteredDB.slice(start, start + itemsPerPage);
+        const grid = document.getElementById('movieGrid');
+        const noResult = document.getElementById('noResult');
+        
+        if(filteredDB.length === 0) {
+            grid.innerHTML = "";
+            noResult.style.display = "block";
+            document.getElementById('pagination').innerHTML = "";
+            return;
+        } else {
+            noResult.style.display = "none";
+        }
+
+        const start = (currentPage-1)*itemsPerPage, pageItems = filteredDB.slice(start, start + itemsPerPage);
         grid.innerHTML = pageItems.map(item => `
             <div class="m-card animate__animated animate__fadeInUp" onclick="watchItem(${item.id})">
                 <div class="m-poster" style="background-image:url('${item.img}')">
                     <div class="m-badge">${item.type === 'movie' ? 'فیلم' : 'زنجیرە'}</div>
+                    <div class="m-genre-badge">${item.genre || 'نەزانراو'}</div>
                 </div>
                 <div class="m-info">
                     <h3>${item.title}</h3><div style="font-size:0.8rem; color:#94a3b8;">${item.year} - <i class="fas fa-star" style="color:#f59e0b"></i> ${item.rating}</div>
-                    ${isAdmin ? `<button onclick="event.stopPropagation(); deleteItem(${item.id})" style="margin-top:10px; background:#ef4444; color:#fff; border:none; padding:5px 12px; border-radius:10px; cursor:pointer;">سڕینەوە</button>` : ''}
+                    ${isAdmin ? `<button onclick="event.stopPropagation(); deleteItem(${item.id})" style="margin-top:10px; background:#ef4444; color:#fff; border:none; padding:5px 12px; border-radius:10px; cursor:pointer;"><i class="fas fa-trash"></i> سڕینەوە</button>` : ''}
                 </div>
             </div>`).join('');
+        
         const container = document.getElementById('pagination'), total = Math.ceil(filteredDB.length/itemsPerPage);
         container.innerHTML = ""; for(let i=1; i<=total; i++) container.innerHTML += `<div class="page-node ${i===currentPage?'active':''}" onclick="setPage(${i})">${i}</div>`;
     }
-    function setPage(p) { currentPage = p; renderAd(); renderUI(); window.scrollTo(0, 0); }
+    
+    function setPage(p) { currentPage = p; renderAd(); renderUI(); window.scrollTo({ top: document.getElementById('appRoot').offsetTop - 100, behavior: 'smooth' }); }
 
-    document.getElementById('searchInput').oninput = function() {
-        const s = this.value.toLowerCase();
-        filteredDB = db.filter(m => m.title.toLowerCase().includes(s));
+    // سیستەمی نوێی گەڕان و فلتەرکردن
+    function applyFilters() {
+        const s = document.getElementById('searchInput').value.toLowerCase();
+        filteredDB = db.filter(m => {
+            const matchSearch = m.title.toLowerCase().includes(s);
+            const matchCat = (currentCategory === 'هەمووی') ? true : (m.genre === currentCategory);
+            return matchSearch && matchCat;
+        });
         currentPage = 1; renderAd(); renderUI();
-    };
+    }
+
+    document.getElementById('searchInput').oninput = applyFilters;
+
+    function filterByCategory(cat, btn) {
+        currentCategory = cat;
+        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        applyFilters();
+    }
 
     function watchItem(id) {
         currentItem = db.find(x => x.id === id); currentEpIdx = 0; 
@@ -278,62 +362,62 @@
 
         let serversBtns = ''; let isFirst = true;
         for(const [sName, sUrl] of Object.entries(activeServers)) {
-            serversBtns += `<button class="action-btn ${isFirst ? 'active-server' : ''}" onclick="changeServer('${sUrl}', this)">${sName}</button>`;
-            isFirst = false;
+            serversBtns += `<button class="action-btn ${isFirst ? 'active-server' : ''}" onclick="changeServer('${sUrl}', this)">${sName}</button>`; isFirst = false;
         }
 
         let episodesHTML = '';
         if(isSeries) {
             const epButtons = currentItem.episodes.map((ep, i) => `<button class="action-btn ${i === currentEpIdx ? 'active-server' : ''}" onclick="changeEpisode(${i})">${ep.title}</button>`).join('');
-            episodesHTML = `<div class="section-box"><h3 class="section-title">ئەڵقەکان</h3><div class="btn-grid">${epButtons}</div></div>`;
+            episodesHTML = `<div class="section-box"><h3 class="section-title"><i class="fas fa-list"></i> ئەڵقەکان</h3><div class="btn-grid">${epButtons}</div></div>`;
         }
 
         root.innerHTML = `
             <div class="animate__animated animate__fadeIn">
-                <button class="btn-elite" style="width:auto; padding:8px 30px; margin-bottom:30px;" onclick="location.reload()">گەڕانەوە</button>
-                <div style="background:#000; border-radius:30px; overflow:hidden; border:3px solid var(--accent); margin-bottom:30px;">
+                <button class="btn-elite" style="width:auto; padding:8px 30px; margin-bottom:30px;" onclick="location.reload()"><i class="fas fa-arrow-right"></i> گەڕانەوە</button>
+                <div style="background:#000; border-radius:30px; overflow:hidden; border:3px solid var(--accent); margin-bottom:30px; box-shadow: var(--glow);">
                     <iframe id="kPlayer" src="${defaultLink}" style="width:100%; aspect-ratio:16/9; border:none;" allowfullscreen></iframe>
                 </div>
-                <h1 style="font-size:2rem; color:var(--accent);">${currentItem.title}</h1>
-                <p style="background:rgba(255,255,255,0.06); padding:20px; border-radius:15px; margin: 20px 0;">${currentItem.desc}</p>
-                <div class="section-box"><h3 class="section-title">سێرڤەرەکان</h3><div class="btn-grid">${serversBtns}</div></div>
+                <h1 style="font-size:2rem; color:var(--accent); font-weight:900;">${currentItem.title}</h1>
+                <div style="display:flex; gap:10px; margin-top:10px;">
+                    <span style="background:var(--accent); color:#000; padding:3px 10px; border-radius:8px; font-weight:bold; font-size:0.8rem;">${currentItem.genre || 'نەزانراو'}</span>
+                    <span style="background:#222; color:#fff; padding:3px 10px; border-radius:8px; font-weight:bold; font-size:0.8rem;">${currentItem.year}</span>
+                </div>
+                <p style="background:rgba(255,255,255,0.06); padding:20px; border-radius:15px; margin: 20px 0; border: 1px solid rgba(255,255,255,0.1);">${currentItem.desc}</p>
+                <div class="section-box"><h3 class="section-title"><i class="fas fa-server"></i> سێرڤەرەکان</h3><div class="btn-grid">${serversBtns}</div></div>
                 ${episodesHTML}
             </div>
         `;
     }
+    
     function changeServer(url, btn) { document.getElementById('kPlayer').src = url; document.querySelectorAll('.action-btn').forEach(b => b.classList.remove('active-server')); btn.classList.add('active-server'); }
     function changeEpisode(index) { currentEpIdx = index; renderPlayerPage(); }
 
     function addServerRow() {
-        const div = document.createElement('div'); div.className = 'server-row';
+        const div = document.createElement('div'); div.className = 'server-row animate__animated animate__fadeIn';
         div.innerHTML = `<input type="text" placeholder="ناوی سێرڤەر" class="srv-name" style="margin:0;"><input type="text" placeholder="لینکی سێرڤەر" class="srv-url" style="margin:0;"><button class="btn-elite" style="background:#ef4444; color:#fff; width:auto; padding:12px;" onclick="this.parentElement.remove()"><i class="fas fa-trash"></i></button>`;
         document.getElementById('dynamicServers').appendChild(div);
     }
 
     async function saveItem() {
         const btn = document.getElementById('publishBtn');
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> خەزن دەبێت...'; btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> چاوەڕێبە...'; btn.disabled = true;
 
-        // وەرگرتنی وێنە
         let imgFinalLink = document.getElementById('addILink').value;
         const fileInput = document.getElementById('addIFile');
         if (fileInput.files.length > 0) {
-            if(IMGBB_API_KEY.includes("لێرە")) { alert("تکایە سەرەتا API Key ی ImgBB لە کۆدەکە دابنێ بۆ ئەپلۆدکردنی فایل."); btn.innerHTML = 'بڵاوکردنەوەی بەرهەم'; btn.disabled = false; return; }
             const formData = new FormData(); formData.append("image", fileInput.files[0]);
             try {
                 btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> بەرزکردنەوەی وێنە...';
                 const res = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, { method: "POST", body: formData });
                 const data = await res.json();
                 if(data.success) imgFinalLink = data.data.url;
-            } catch(e) { alert("کێشە لە بەرزکردنەوەی وێنە ڕوویدا!"); }
+            } catch(e) { alert("کێشە لە وێنەکە هەیە!"); }
         }
         if(!imgFinalLink) imgFinalLink = 'https://via.placeholder.com/500x750?text=No+Poster';
 
-        // وەرگرتنی سێرڤەرەکان
         let customServers = {};
         document.querySelectorAll('.server-row').forEach(row => {
-            const name = row.querySelector('.srv-name').value.trim();
-            const url = row.querySelector('.srv-url').value.trim();
+            const name = row.querySelector('.srv-name').value.trim(); const url = row.querySelector('.srv-url').value.trim();
             if(name && url) customServers[name] = url;
         });
 
@@ -344,13 +428,11 @@
             genre: document.getElementById('addGenre').value, desc: document.getElementById('addD').value 
         };
 
-        if(type === 'movie') {
-            newItem.servers = customServers;
-        } else {
+        if(type === 'movie') { newItem.servers = customServers; } 
+        else {
             let maxEps = 0; let serverArrays = {};
             for(let [sName, sUrls] of Object.entries(customServers)) {
-                let arr = sUrls.split(',').map(u => u.trim());
-                serverArrays[sName] = arr;
+                let arr = sUrls.split(',').map(u => u.trim()); serverArrays[sName] = arr;
                 if(arr.length > maxEps) maxEps = arr.length;
             }
             newItem.episodes = [];
@@ -361,11 +443,15 @@
             }
         }
 
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> خەزنکردن لە داتابەیس...';
-        db.unshift(newItem); await saveToCloudDB(); location.reload();
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> خەزنکردن...';
+        try { db.unshift(newItem); await saveToCloudDB(); location.reload(); } 
+        catch (error) { alert("کێشە هەیە!"); btn.innerHTML = 'دووبارە هەوڵبدەرەوە'; btn.disabled = false; db.shift(); }
     }
 
-    async function deleteItem(id) { if(confirm('دڵنیایت لە سڕینەوەی؟')) { db = db.filter(x => x.id !== id); await saveToCloudDB(); location.reload(); } }
+    async function deleteItem(id) { 
+        if(confirm('دڵنیایت؟')) { db = db.filter(x => x.id !== id); try { await saveToCloudDB(); location.reload(); } catch (e) { alert("کێشە لە سڕینەوە!"); } } 
+    }
+    
     function handleAuth() { const n = document.getElementById('authU').value; if(n) { localStorage.setItem('pasha_user_v37', JSON.stringify({name:n})); location.reload(); } }
     function checkAdmin() { if(document.getElementById('adminKey').value === "sanisarok1") { localStorage.setItem('pasha_isAdmin_v37', 'true'); location.reload(); } else alert("کۆدی هەڵەیە!"); }
     function openModal(id) { document.getElementById(id).style.display = 'flex'; }
